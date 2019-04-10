@@ -19,7 +19,6 @@
                 @click:append="postQuery()"
                 outline
                 dense
-                background-color="black"
                 clearable
                 single-line
                 @keyup.enter.native="postQuery"
@@ -28,14 +27,14 @@
                 return-object
             >
             </v-combobox>
-            <v-alert
+            <!-- <v-alert
               :value="error1"
               color="error"
               icon="warning"
               outline
             >
               This is a error alert.
-            </v-alert>
+            </v-alert> -->
         </v-flex>
       </v-layout>
       <v-layout align-center justify-center row wrap pt-3>
@@ -147,10 +146,7 @@ import 'nprogress/nprogress.css'
            this.$router.push({ name: 'Search_results', params:{ pagedata: response.data , keywd:this.keywd }})
         })
       }else {
-        // this.dismissCountDown = this.dismissSecs,
-        // NProgress.done()
-        this.error1 = true
-        // this.error1 = false
+        NProgress.done()
 
 
       }
