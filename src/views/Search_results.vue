@@ -1,15 +1,10 @@
 <template>
-  <v-container>
-  <v-layout align-start justify-center row wrap>
-      <v-flex xs12 lg4 md3 class="text-xs-center">
-        <v-layout align-center justify-center row wrap>
-          <v-flex xs12 lg7 md3></v-flex>
-          <v-flex xs12 lg5 md9 class="text-xs-center">
-            <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="48" alt="爱影——影视聚合搜索"></a>
-          </v-flex>
-        </v-layout>
+  <v-content>
+  <v-layout align-center justify-start row wrap pt-2 class="grey lighten-4">
+      <v-flex xs11 lg1 md2 class="text-xs-center">
+        <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="43" alt="爱影——影视聚合搜索"></a>
       </v-flex>
-      <v-flex xs12 lg4 md6 v-if="query_leixing">
+      <v-flex xs11 lg5 md6 v-if="query_leixing">
           <v-combobox
               v-model="keywd"
                 :items="items"
@@ -29,7 +24,7 @@
             >
             </v-combobox>
           </v-flex>
-      <v-flex xs12 lg4 md6 v-else>
+      <v-flex xs11 lg5 md6 v-else>
           <v-combobox
               v-model="keywd"
                 :items="items"
@@ -48,31 +43,45 @@
                 solo
             >
             </v-combobox>
-          <!-- <v-alert
-            :value="error1"
-            color="error"
-            icon="warning"
-            outline
-          >
-            This is a error alert.
-          </v-alert> -->
       </v-flex>
-      <v-flex xs12 lg4 md3>
+      <v-flex xs11 lg6 md4>
         <navbar></navbar>
       </v-flex>
       </v-layout>
-      <v-layout align-center justify-center row wrap>
-        <v-flex xs12 lg8 md8 class="text-xs-center">
-          <v-btn outline color="orange accent-3" small type="button" :input-value="query_leixing" @click="postQuery">在线</v-btn>&nbsp;&nbsp;
-          <v-btn outline color="orange accent-3" small type="button"  :input-value="query_leixing_down" @click="postQuery_download">下载</v-btn>
-        </v-flex>
-        <!-- <v-layout align-center justify-center row wrap pt-5 > -->
-          <v-flex xs12 md8 lg8 class="text-xs-center" v-if="!this.total">
+      
+      <v-layout align-start justify-center row wrap class="grey lighten-4"  pt-1>
+      <v-flex xs11 lg1 md2 class="text-xs-center">
+
+      </v-flex>
+      <v-flex xs11 lg5 md6 class="text-lg-left text-xs-center text-md-left">
+          <v-btn-toggle v-model="query_leixing">
+              <v-btn flat value="trur" @click="postQuery">
+                在线观看
+              </v-btn>
+              <v-btn flat value="false" @click="postQuery_download">
+                下载资源
+              </v-btn>
+            </v-btn-toggle>
+      </v-flex>
+      <v-flex xs11 lg6 md4>
+
+      </v-flex>
+      </v-layout>
+<hr>
+      <v-layout align-start justify-center row wrap>
+      <v-flex xs11 lg1 md2 class="text-xs-center">
+
+      </v-flex>
+      <v-flex xs11 lg5 md6>
+        <v-layout align-start justify-center row wrap>
+        <!-- <v-layout align-center justify-center row wrap pt-3 > -->
+          <v-flex xs12 md8 lg12 class="text-lg-left text-xs-center text-md-left" v-if="!this.total" pt-2>
             <p>Sorry！暂时没有收录该视频，我们会抓紧寻找，您可以试试<router-link to="/vipjx">VIP在线解析</router-link></p>
           </v-flex>
         <!-- </v-layout> -->
-        <v-flex xs12 lg6 md8 class="text-xs-center" v-if="this.total">
-          <p><i class="fa fa-search"></i> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</p>
+
+        <v-flex xs11 lg12 md12 class="text-xs-center text-lg-left text-md-left" v-if="this.total" pt-2>
+          <h5><i class="fa fa-search"></i> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</h5>
         <v-list two-line>
           <template v-for="result in results">
             <v-list-tile
@@ -106,21 +115,54 @@
             <v-divider></v-divider>
           </template>
         </v-list>
-        <!-- <div class="panel panel-default list-panel search-results" v-if="query_leixing">
-                  <pagination :data="pagedata" @pagination-change-page="postQuery"></pagination>
-                </div>
-                <div class="panel panel-default list-panel search-results" v-else>
-                  <pagination :data="pagedata" @pagination-change-page="postQuery_download"></pagination>
-                </div> -->
-                <v-pagination
-                    v-model="pagination.current"
-                    :length="pagination.total"
-                    @input="onPageChange"
-                ></v-pagination>
+        
 
         </v-flex>
         </v-layout>
-</v-container>
+      </v-flex>
+      <v-flex xs12 lg6 md4 pt-4>
+        <v-layout>
+          <v-flex xs11 md6 lg5 offset-sm2>
+            <v-card>
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+                <div> Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.</div>
+              </div>
+            </v-card-title>
+
+            <v-card-actions>
+              <v-btn flat color="orange">Share</v-btn>
+              <v-btn flat color="orange">Explore</v-btn>
+            </v-card-actions>
+          </v-card>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      </v-layout>
+
+      <v-layout align-start justify-center row wrap>
+      <v-flex xs12 lg1 md2 class="text-xs-center">
+
+      </v-flex>
+      <v-flex xs12 lg5 md6>
+         <v-pagination
+            v-model="pagination.current"
+            :length="pagination.total"
+            @input="onPageChange"
+        ></v-pagination>
+      </v-flex>
+      <v-flex xs12 lg6 md4>
+
+      </v-flex>
+      </v-layout>
+        
+  </v-content>
 </template>
 <script>
 import { query,query_download } from '@/api/search'
@@ -284,6 +326,7 @@ export default {
 .result{background-color:#FCFCFC;}
 .highlight{color: #F72F05;}
 .logo{width:194px; height:66px;}
+.btn-g{color: #F72F05;}
 .hotword{margin:6px;color:#4d555d;}
 .hotword:hover{margin:6px;color:#0099ff;}
 </style>
