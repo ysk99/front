@@ -295,7 +295,17 @@ export default {
       }else {
         this.postQuery();
       }
-        }
+    },
+    doubanapi() {
+      this.$jsonp('https://api.douban.com/v2/movie/search', { q: this.keywd}).then(json => {
+      this.loading = false
+      // console.log(json)
+      // this.items = 
+      console.log(json.subjects)
+      }).catch(err => {
+        // console.log("失败")
+      })
+    }
   },
   watch: {
     search (val) {
@@ -311,6 +321,7 @@ export default {
       this.query_leixing = true;
       this.query_leixing_down = false;
     }
+    this.doubanapi(),
     this.results = this.pagedata.data,
     this.pagination.current = this.pagedata.current_page,
     this.pagination.total = this.pagedata.last_page,
@@ -326,7 +337,6 @@ export default {
 .result{background-color:#FCFCFC;}
 .highlight{color: #F72F05;}
 .logo{width:194px; height:66px;}
-.btn-g{color: #F72F05;}
 .hotword{margin:6px;color:#4d555d;}
 .hotword:hover{margin:6px;color:#0099ff;}
 </style>
