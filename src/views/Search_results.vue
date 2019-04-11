@@ -28,14 +28,14 @@
               placeholder="请输入关键词(支持拼音、缩写)"
           >
           </v-combobox>
-          <v-alert
+          <!-- <v-alert
             :value="error1"
             color="error"
             icon="warning"
             outline
           >
             This is a error alert.
-          </v-alert>
+          </v-alert> -->
           <!-- <v-btn outline color="indigo" type="button" :pressed.sync="query_leixing" @click="postQuery">在线</v-btn>&nbsp;&nbsp;
         <v-btn outline color="indigo" type="button"  :pressed.sync="query_leixing_down" @click="postQuery_download">下载</v-btn> -->
       </v-flex>
@@ -57,14 +57,14 @@
               placeholder="请输入关键词(支持拼音、缩写)"
           >
           </v-combobox>
-          <v-alert
+          <!-- <v-alert
             :value="error1"
             color="error"
             icon="warning"
             outline
           >
             This is a error alert.
-          </v-alert>
+          </v-alert> -->
       </v-flex>
       <v-flex xs12 lg4 md3>
       </v-flex>
