@@ -123,16 +123,17 @@
       <v-flex xs12 lg6 md4 pt-4>
         <v-layout>
           <v-flex xs11 md6 lg5 offset-sm2>
-            <v-card>
+            <!-- <v-card>
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+              :src='this.douban.images.medium'
               aspect-ratio="2.75"
             ></v-img>
 
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                <div> Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.</div>
+                <h4 class="headline mb-0">{{this.douban.title}}[{{this.douban.year}}]</h4>
+                <h5 class="title mb-0">{{this.douban.rating.average}}</h5>
+                <div>{{this.douban.summary}}</div>
               </div>
             </v-card-title>
 
@@ -140,13 +141,43 @@
               <v-btn flat color="orange">Share</v-btn>
               <v-btn flat color="orange">Explore</v-btn>
             </v-card-actions>
-          </v-card>
+          </v-card> -->
+
+          <v-card color="purple" class="white--text">
+              <v-layout row>
+                <v-flex xs7>
+                  <v-card-title primary-title>
+                    <div>
+                      <div class="headline">{{this.douban.title}}-({{this.douban.year}})</div>
+                      <!-- <div></div> -->
+                      <div class="caption">{{this.douban.summary}}</div>
+                    </div>
+                  </v-card-title>
+                </v-flex>
+                <v-flex xs5>
+                  <v-img
+                    :src='this.douban.images.medium'
+                    height="200px"
+                    contain
+                  ></v-img>
+                </v-flex>
+              </v-layout>
+              <v-divider light></v-divider>
+              <v-card-actions class="pa-3">
+                {{this.douban.countries[0]}}
+                <v-spacer></v-spacer>
+                豆瓣评分
+                <v-icon>star_border</v-icon>
+                {{this.douban.rating.average}}
+              </v-card-actions>
+            </v-card>
+        
           </v-flex>
         </v-layout>
       </v-flex>
       </v-layout>
 
-      <v-layout align-start justify-center row wrap>
+      <v-layout align-start justify-center row wrap v-if="this.total">
       <v-flex xs12 lg1 md2 class="text-xs-center">
 
       </v-flex>
@@ -187,6 +218,7 @@ export default {
       page: 1,
       gradient: 'to top, #7B1FA2, #E1BEE7',
       states: [],
+      douban:{},
       results:{
         title:'',
         id:null,
@@ -297,11 +329,22 @@ export default {
       }
     },
     doubanapi() {
-      this.$jsonp('https://api.douban.com/v2/movie/search', { q: this.keywd}).then(json => {
+      this.$jsonp('https://api.douban.com/v2/movie/search', { q: this.keywd , count: 5}).then(json => {
       this.loading = false
       // console.log(json)
       // this.items = 
-      console.log(json.subjects)
+      // this.douban = json.subjects[0]
+      // console.log(json.subjects)
+      // console.log(this.douban.images.medium)
+      this.$jsonp('https://api.douban.com/v2/movie/subject/'+json.subjects[0].id).then(json => {
+      this.loading = false
+      this.douban = json
+      console.log(json)
+      // console.log(this.douban.images.medium)
+      }).catch(err => {
+        // console.log("失败")
+      })
+      
       }).catch(err => {
         // console.log("失败")
       })

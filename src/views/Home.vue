@@ -2,13 +2,13 @@
   <v-container>
   <navbar></navbar>
   <v-layout align-center justify-center row wrap pt-4>
-    <v-flex class="text-xs-center">
+    <v-flex class="text-xs-center text-md-center text-lg-center">
       <!-- <v-img class="mb-4 logo" href="https://iying.online" src="@/assets/logo.png" alt="爱影——影视聚合搜索"></v-img> -->
          <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="56" alt="爱影——影视聚合搜索"></a>
     </v-flex>
     </v-layout>
     <v-layout align-center justify-center row wrap pt-4>
-        <v-flex xs12 lg6 md7>
+        <v-flex xs12 lg6 md7 class="max">
             <v-combobox
               v-model="keywd"
                 :items="items"
@@ -26,18 +26,10 @@
                 solo
             >
             </v-combobox>
-            <!-- <v-alert
-              :value="error1"
-              color="error"
-              icon="warning"
-              outline
-            >
-              This is a error alert.
-            </v-alert> -->
         </v-flex>
       </v-layout>
       <v-layout align-center justify-center row wrap pt-3>
-          <v-flex xs11 lg5 md7 class="text-xs-center">
+          <v-flex xs11 lg5 md7 class="text-xs-center text-md-center text-lg-center max">
             <p><热搜></p>
             <ul id="hotsearch">
                 <li v-for="hotsearch in hotsearchs">
@@ -170,5 +162,6 @@ margin:0; /* 将默认的外边距去掉 */
 #hotsearch li {
 float:left; /* 往左浮动 */
 }
+.max{max-width: 620px;}
 .hotword:hover{margin:6px;color:#0099ff;}
 </style>
