@@ -1,11 +1,11 @@
 <template>
   <v-container>
   <v-layout align-start justify-center row wrap>
-      <v-flex xs12 lg4 md3 class="text-xs-center">
-        <v-layout align-center justify-center row wrap>
-          <v-flex xs12 lg7 md3></v-flex>
-          <v-flex xs12 lg5 md9 class="text-xs-center">
-            <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="48" alt="爱影——影视聚合搜索"></a>
+      <v-flex xs12 lg2 md3 class="text-xs-center">
+        <v-layout align-start justify-center row wrap>
+          <v-flex xs12 lg3 md3></v-flex>
+          <v-flex xs12 lg9 md9 class="text-xs-center">
+            <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="43" alt="爱影——影视聚合搜索"></a>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -48,30 +48,49 @@
                 solo
             >
             </v-combobox>
-          <!-- <v-alert
-            :value="error1"
-            color="error"
-            icon="warning"
-            outline
-          >
-            This is a error alert.
-          </v-alert> -->
       </v-flex>
-      <v-flex xs12 lg4 md3>
+      <v-flex xs12 lg6 md3>
         <navbar></navbar>
       </v-flex>
       </v-layout>
-      <v-layout align-center justify-center row wrap>
-        <v-flex xs12 lg8 md8 class="text-xs-center">
-          <v-btn outline color="orange accent-3" small type="button" :input-value="query_leixing" @click="postQuery">在线</v-btn>&nbsp;&nbsp;
-          <v-btn outline color="orange accent-3" small type="button"  :input-value="query_leixing_down" @click="postQuery_download">下载</v-btn>
-        </v-flex>
-        <!-- <v-layout align-center justify-center row wrap pt-5 > -->
-          <v-flex xs12 md8 lg8 class="text-xs-center" v-if="!this.total">
+
+    <v-layout align-start justify-center row wrap>
+      <v-flex xs12 lg2 md3 class="text-xs-center">
+        <v-layout align-start justify-center row wrap>
+          <v-flex xs12 lg7 md3></v-flex>
+          <v-flex xs12 lg5 md9 class="text-xs-center">
+          
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs12 lg6 md6>
+     <v-btn outline color="orange accent-3" small type="button" :input-value="query_leixing" @click="postQuery">在线</v-btn>&nbsp;&nbsp;
+      <v-btn outline color="orange accent-3" small type="button"  :input-value="query_leixing_down" @click="postQuery_download">下载</v-btn>
+        
+      </v-flex>
+ 
+      <v-flex xs12 lg4 md3>
+        
+      </v-flex>
+      </v-layout>
+
+<v-layout align-center justify-center row wrap pt-5 v-if="!this.total">
+          <v-flex xs12 md8 lg8 class="text-xs-center">
             <p>Sorry！暂时没有收录该视频，我们会抓紧寻找，您可以试试<router-link to="/vipjx">VIP在线解析</router-link></p>
           </v-flex>
-        <!-- </v-layout> -->
-        <v-flex xs12 lg6 md8 class="text-xs-center" v-if="this.total">
+        </v-layout>
+
+<v-layout align-start justify-center row wrap>
+      <v-flex xs12 lg2 md3 class="text-xs-center">
+        <v-layout align-start justify-center row wrap>
+          <v-flex xs12 lg7 md3></v-flex>
+          <v-flex xs12 lg5 md9 class="text-xs-center">
+          
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs12 lg6 md6 class="text-xs-center" v-if="this.total">
+     
           <p><i class="fa fa-search"></i> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</p>
         <v-list two-line>
           <template v-for="result in results">
@@ -118,8 +137,13 @@
                     @input="onPageChange"
                 ></v-pagination>
 
-        </v-flex>
-        </v-layout>
+        
+      </v-flex>
+ 
+      <v-flex xs12 lg4 md3>
+        
+      </v-flex>
+      </v-layout>
 </v-container>
 </template>
 <script>
