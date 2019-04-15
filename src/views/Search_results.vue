@@ -121,35 +121,36 @@
         </v-layout>
       </v-flex>
       <v-flex xs12 lg6 md4 pt-4>
-        <v-layout>
-          <v-flex xs11 md6 lg5 offset-sm2>
-            <!-- <v-card>
+        <v-layout align-start justify-center row wrap>
+          <v-flex xs11 md6 lg5 class="text-xs-center text-lg-left text-md-left">
+            <v-btn color="purple" dark @click="movie_msg" v-if="!is_movie_msg">查看电影详情</v-btn>
+            <v-card v-if="is_movie_msg" color="purple" class="white--text">
             <v-img
               :src='this.douban.images.medium'
               aspect-ratio="2.75"
+              referrerpolicy ="never"
             ></v-img>
 
             <v-card-title primary-title>
               <div>
                 <h4 class="headline mb-0">{{this.douban.title}}[{{this.douban.year}}]</h4>
-                <h5 class="title mb-0">{{this.douban.rating.average}}</h5>
+                
                 <div>{{this.douban.summary}}</div>
               </div>
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn>
+              <p class="body-1">评分：{{this.douban.rating.average}}</p>   
+              <p class="body-1 pl-5">导演：{{this.douban.directors[0].name}}</p>
             </v-card-actions>
-          </v-card> -->
+          </v-card>
 
-          <v-card color="purple" class="white--text">
+          <!-- <v-card color="purple" class="white--text">
               <v-layout row>
                 <v-flex xs7>
                   <v-card-title primary-title>
                     <div>
                       <div class="headline">{{this.douban.title}}-({{this.douban.year}})</div>
-                      <!-- <div></div> -->
                       <div class="caption">{{this.douban.summary}}</div>
                     </div>
                   </v-card-title>
@@ -170,7 +171,7 @@
                 <v-icon>star_border</v-icon>
                 {{this.douban.rating.average}}
               </v-card-actions>
-            </v-card>
+            </v-card> -->
         
           </v-flex>
         </v-layout>
@@ -210,6 +211,8 @@ export default {
       total:0 ,
       keywd:'null',
       error1:false,
+      is_movie_msg: false,
+      // movie_msg_progress:false,
       items:[],
       query_leixing:true,
       query_leixing_down:false,
@@ -265,6 +268,12 @@ export default {
     },
     gorouter(url){
       this.$router.push({ name: url})
+    },
+    movie_msg(){
+      this.is_movie_msg = true,
+      // this.movie_msg_progress = true,
+      NProgress.start(),
+      this.doubanapi()
     },
     postQuery(page) {
       if (typeof page === 'undefined') {
@@ -330,14 +339,16 @@ export default {
     },
     doubanapi() {
       this.$jsonp('https://api.douban.com/v2/movie/search', { q: this.keywd , count: 5}).then(json => {
-      this.loading = false
+      // this.loading = false
+      NProgress.done()
       // console.log(json)
       // this.items = 
       // this.douban = json.subjects[0]
       // console.log(json.subjects)
       // console.log(this.douban.images.medium)
       this.$jsonp('https://api.douban.com/v2/movie/subject/'+json.subjects[0].id).then(json => {
-      this.loading = false
+      // this.loading = false
+      // this.movie_msg_progress = false
       this.douban = json
       console.log(json)
       // console.log(this.douban.images.medium)
@@ -364,7 +375,7 @@ export default {
       this.query_leixing = true;
       this.query_leixing_down = false;
     }
-    this.doubanapi(),
+    // this.doubanapi(),
     this.results = this.pagedata.data,
     this.pagination.current = this.pagedata.current_page,
     this.pagination.total = this.pagedata.last_page,
