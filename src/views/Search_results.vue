@@ -1,6 +1,6 @@
 <template>
   <v-content>
-  <v-layout align-center justify-start row wrap pt-2 class="grey lighten-4">
+  <v-layout align-center justify-center row wrap pt-2 class="grey lighten-4">
       <v-flex xs11 lg1 md2 class="text-xs-center">
         <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="43" alt="爱影——影视聚合搜索"></a>
       </v-flex>
