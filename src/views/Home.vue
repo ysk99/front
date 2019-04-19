@@ -69,6 +69,7 @@ import 'nprogress/nprogress.css'
         items: [],
         error1:false,
         search: null,
+        query_leixing:0,
         hotsearchs:{
           uid:'',
           name:''
@@ -132,6 +133,7 @@ import 'nprogress/nprogress.css'
         query(this.keywd ,this.page).then(response => {
             window.localStorage.setItem("pagedata",JSON.stringify(response.data)),
             window.localStorage.setItem("keywd",JSON.stringify(this.keywd)),
+            window.localStorage.setItem("query_leixing",JSON.stringify(this.query_leixing)),
               // console.log(response.data),
               NProgress.done(),
            this.$router.push({ name: 'Search_results', params:{ pagedata: response.data , keywd:this.keywd }})

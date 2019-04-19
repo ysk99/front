@@ -1,6 +1,6 @@
 <template>
   <v-content>
-  <v-layout align-center justify-center row wrap pt-2 class="grey lighten-4">
+  <v-layout align-center justify-center row wrap pt-2 class="grey lighten-5">
       <v-flex xs11 lg1 md2 class="text-xs-center">
         <a @click="gorouter('home')"><img :src="require('../assets/logo.png')" height="43" alt="爱影——影视聚合搜索"></a>
       </v-flex>
@@ -49,16 +49,16 @@
       </v-flex>
       </v-layout>
       
-      <v-layout align-start justify-center row wrap class="grey lighten-4"  pt-1>
+      <v-layout align-start justify-center row wrap class="grey lighten-5"  pt-1>
       <v-flex xs11 lg1 md2 class="text-xs-center">
 
       </v-flex>
       <v-flex xs11 lg5 md6 class="text-lg-left text-xs-center text-md-left">
           <v-btn-toggle v-model="query_leixing">
-              <v-btn flat value="trur" @click="postQuery">
+              <v-btn   @click="postQuery" active-class="orange">
                 在线观看
               </v-btn>
-              <v-btn flat value="false" @click="postQuery_download">
+              <v-btn   @click="postQuery_download" active-class="orange">
                 下载资源
               </v-btn>
             </v-btn-toggle>
@@ -214,7 +214,7 @@ export default {
       is_movie_msg: false,
       // movie_msg_progress:false,
       items:[],
-      query_leixing:true,
+      query_leixing:0,
       query_leixing_down:false,
       loading: false,
       search: null,
@@ -279,7 +279,7 @@ export default {
       if (typeof page === 'undefined') {
   				page = 1;
   			}
-        this.query_leixing = true,
+        this.query_leixing = 0,
         this.query_leixing_down = false
         NProgress.start()
         if(this.keywd){
@@ -307,7 +307,7 @@ export default {
       // if (typeof page === 'undefined') {
   		// 		page = 1;
   		// 	}
-        this.query_leixing = false,
+        this.query_leixing = 1,
         this.query_leixing_down = true
         NProgress.start()
         if(this.keywd){
@@ -331,10 +331,10 @@ export default {
         }
     },
     onPageChange() {
-      if(this.query_leixing_down){
-        this.postQuery_download();
-      }else {
+      if(this.query_leixing){
         this.postQuery();
+      }else {
+        this.postQuery_download();
       }
     },
     doubanapi() {
@@ -371,8 +371,8 @@ export default {
     this.keywd = JSON.parse(window.localStorage.getItem("keywd")),
     this.query_leixing = JSON.parse(window.localStorage.getItem("query_leixing")),
     this.query_leixing_down = JSON.parse(window.localStorage.getItem("query_leixing_down"))
-    if(!(this.query_leixing||this.query_leixing_down)){
-      this.query_leixing = true;
+    if(this.query_leixing){
+      this.query_leixing = 1;
       this.query_leixing_down = false;
     }
     // this.doubanapi(),
