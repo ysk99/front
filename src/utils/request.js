@@ -3,8 +3,8 @@ import axios from 'axios'
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL:'http://localhost/newengine/public/api', // api 的 base_url
-  baseURL:'http://iying.online/api', // api 的 base_url
+  baseURL:'http://localhost/newengine/public/api', // api 的 base_url
+  // baseURL:'http://iying.online/api', // api 的 base_url
   timeout: 5000
 })
 

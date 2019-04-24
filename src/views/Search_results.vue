@@ -55,10 +55,10 @@
       </v-flex>
       <v-flex xs11 lg5 md6 class="text-lg-left text-xs-center text-md-left">
           <v-btn-toggle v-model="query_leixing">
-              <v-btn   @click="postQuery" active-class="orange">
+              <v-btn   @click="go_online" active-class="orange">
                 在线观看
               </v-btn>
-              <v-btn   @click="postQuery_download" active-class="orange">
+              <v-btn   @click="go_download" active-class="orange">
                 下载资源
               </v-btn>
             </v-btn-toggle>
@@ -82,7 +82,7 @@
 
         <v-flex xs11 lg12 md12 class="text-xs-center text-lg-left text-md-left" v-if="this.total" pt-2>
           <h5><i class="fa fa-search"></i> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</h5>
-        <v-list two-line>
+        <!-- <v-list two-line>
           <template v-for="result in results">
             <v-list-tile
               :key="result.title"
@@ -97,25 +97,28 @@
 
               <v-list-tile-action>
                 <v-list-tile-action-text>{{ result.website }}</v-list-tile-action-text>
-              <!-- <v-icon
-                  v-if="selected.indexOf(index) < 0"
-                  color="grey lighten-1"
-                >
-                  star_border
-                </v-icon>
-
-                <v-icon
-                  v-else
-                  color="yellow darken-2"
-                >
-                  star
-                </v-icon> -->
               </v-list-tile-action>
             </v-list-tile>
             <v-divider></v-divider>
           </template>
-        </v-list>
-        
+        </v-list> -->
+        <!-- result model -->
+      <v-layout align-start justify-center row wrap v-for="result in results" pt-1>
+      <v-flex xs12 lg12 md12 class="text-xs-start">
+        <a :href='result.href' target="_blank" class="title highlight">{{ result.title }}</a>
+      </v-flex>
+      <v-flex xs12 lg9 md8 class="text-xs-start">
+        <p class="body-1">{{ result.others }}</p>   
+      </v-flex>
+      <v-flex xs12 lg3 md4>
+        <p class="body-1">{{ result.website }}</p>   
+      </v-flex>
+      <v-flex xs12 lg12 md12>
+        <hr>   
+      </v-flex>
+      
+      </v-layout>
+        <!-- result model end -->
 
         </v-flex>
         </v-layout>
@@ -276,9 +279,9 @@ export default {
       this.doubanapi()
     },
     postQuery(page) {
-      if (typeof page === 'undefined') {
-  				page = 1;
-  			}
+      // if (typeof page === 'undefined') {
+  		// 		page = 1;
+  		// 	}
         this.query_leixing = 0,
         this.query_leixing_down = false
         NProgress.start()
@@ -330,11 +333,19 @@ export default {
           NProgress.done()
         }
     },
+    go_online() {
+      this.pagination.current = 1;
+      this.postQuery();
+    },
+    go_download() {
+      this.pagination.current = 1;
+      this.postQuery_download();
+    },
     onPageChange() {
       if(this.query_leixing){
-        this.postQuery();
-      }else {
         this.postQuery_download();
+      }else {
+        this.postQuery();
       }
     },
     doubanapi() {
@@ -393,4 +404,5 @@ export default {
 .logo{width:194px; height:66px;}
 .hotword{margin:6px;color:#4d555d;}
 .hotword:hover{margin:6px;color:#0099ff;}
+a:link {text-decoration:none;}
 </style>
