@@ -12,10 +12,10 @@
                 :search-input.sync="search"
                 append-icon="search"
                 hide-no-data
-                @click:append="postQuery()"
+                @click:append="postQuery_download()"
 
                 clearable
-                @keyup.enter.native="postQuery"
+                @keyup.enter.native="postQuery_download"
                 no-filter
                 placeholder="请输入关键词(支持拼音、缩写)"
                 hide-details
@@ -25,17 +25,18 @@
             </v-combobox>
           </v-flex>
       <v-flex xs11 lg5 md6 v-else>
-          <v-combobox
+          
+            <v-combobox
               v-model="keywd"
                 :items="items"
                 :loading="loading"
                 :search-input.sync="search"
                 append-icon="search"
                 hide-no-data
-                @click:append="postQuery_download()"
+                @click:append="postQuery()"
 
                 clearable
-                @keyup.enter.native="postQuery_download"
+                @keyup.enter.native="postQuery"
                 no-filter
                 placeholder="请输入关键词(支持拼音、缩写)"
                 hide-details
@@ -81,7 +82,7 @@
         <!-- </v-layout> -->
 
         <v-flex xs11 lg12 md12 class="text-xs-center text-lg-left text-md-left" v-if="this.total" pt-2>
-          <h5><i class="fa fa-search"></i> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</h5>
+          <p class="caption"><v-icon>mdi-anchor</v-icon> 关于 “<span class="highlight">{{ keywd }}</span>” 的<span class="highlight" v-if="query_leixing">在线视频资源</span><span class="highlight" v-else>下载资源</span>搜索结果, 共 {{ total }} 条</p>
         <!-- <v-list two-line>
           <template v-for="result in results">
             <v-list-tile
@@ -105,7 +106,7 @@
         <!-- result model -->
       <v-layout align-start justify-center row wrap v-for="result in results" pt-1>
       <v-flex xs12 lg12 md12 class="text-xs-start">
-        <a :href='result.href' target="_blank" class="title highlight">{{ result.title }}</a>
+        <a :href='result.href' target="_blank" class="subheading highlight">{{ result.title }}</a>
       </v-flex>
       <v-flex xs12 lg9 md8 class="text-xs-start">
         <p class="body-1">{{ result.others }}</p>   
@@ -114,7 +115,7 @@
         <p class="body-1">{{ result.website }}</p>   
       </v-flex>
       <v-flex xs12 lg12 md12>
-        <hr>   
+        <hr style="height:1px;border:none;background-color: #E0E0E0">   
       </v-flex>
       
       </v-layout>
